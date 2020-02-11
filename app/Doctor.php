@@ -22,6 +22,8 @@ class Doctor extends Model
         "address",
         "b_address",
         "phone",
-        "visiting_hours"
+        "visiting_hours",
+        "lat",
+        "long"
     ];
 }
