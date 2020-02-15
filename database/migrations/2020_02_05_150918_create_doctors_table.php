@@ -58,7 +58,7 @@ class CreateDoctorsTable extends Migration
             $table->string("b_other_chamber")->nullable();
             $table->string("address")->nullable();
             $table->string("b_address")->nullable();
-            $table->integer("phone")->nullable()->unsigned();
+            $table->string("phone",20)->nullable();
             $table->string("visiting_hours")->nullable();
             $table->timestamps();
         });
