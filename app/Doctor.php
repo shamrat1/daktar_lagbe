@@ -26,6 +26,7 @@ class Doctor extends Model
         "visiting_hours_end",
         "lat",
         "long",
-        "weekdays"
+        "weekdays",
+        "image"
     ];
 }
