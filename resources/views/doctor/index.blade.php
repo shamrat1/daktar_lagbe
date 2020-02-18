@@ -47,7 +47,7 @@
                                 <td>{{ $doctor->chamber }}</td>
                                 <td>{{ $doctor->visiting_hours_start }} - {{ $doctor->visiting_hours_end }}</td>
                                 <td>{{ $doctor->weekdays }}</td>
-                                <td><img class="img img-thumbnail" src="{{ asset("images/$doctor->image") }}" alt="Doctor Image"></td>
+                                <td><img class="img img-thumbnail" src="data:image/jpg;base64,{{ $doctor->image }}" alt="Doctor Image"></td>
                                 <td>
                                     <div class="row justify-content-center">
                                         <button id="editButton" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"

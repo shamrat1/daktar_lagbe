@@ -18,16 +18,9 @@ class DoctorController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'lat'=> 'required',
-            'long' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg'
+            'long' => 'required'
+
         ]);
-        if ($request->hasFile("file")){
-            $d_name = str_replace(' ','-',$request->name);
-            $name="doctor-$d_name-".$request->file('file')->getClientOriginalName();
-            $request->file->move(public_path().'/images/', $name);
-            $request->image = $name;
-            $request->merge(["image"=>"$name"]);
-        }
 
 //        dd($request->all());
         Doctor::create($request->all());
