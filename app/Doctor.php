@@ -22,6 +22,7 @@ class Doctor extends Model
         "address",
         "b_address",
         "phone",
+        "fee",
         "visiting_hours_start",
         "visiting_hours_end",
         "lat",

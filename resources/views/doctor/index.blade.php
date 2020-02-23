@@ -47,7 +47,14 @@
                                 <td>{{ $doctor->chamber }}</td>
                                 <td>{{ $doctor->visiting_hours_start }} - {{ $doctor->visiting_hours_end }}</td>
                                 <td>{{ $doctor->weekdays }}</td>
-                                <td><img class="img img-thumbnail" src="data:image/jpg;base64,{{ $doctor->image }}" alt="Doctor Image"></td>
+                                <td>
+                                    @if(empty($doctor->image))
+                                        <h6>No Image</h6>
+                                    @else
+                                        {{--                                    {{ asset('/images/'.$doctor->image) }}--}}
+                                        <img class="img img-thumbnail" src="{{ asset('/images/'.$doctor->image) }}" alt="{{ asset('/images/'.$doctor->image) }}" width="300" height="225">
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="row justify-content-center">
                                         <button id="editButton" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"
@@ -67,6 +74,7 @@
                                            data-address="{{ $doctor->address }}"
                                            data-b_address="{{ $doctor->b_address }}"
                                            data-phone="{{ $doctor->phone }}"
+                                           data-fee="{{ $doctor->fee }}"
                                            data-weekdays="{{ $doctor->weekdays }}"
                                            data-visiting_hours_start="{{ $doctor->visiting_hours_start }}"
                                            data-visiting_hours_end="{{ $doctor->visiting_hours_end }}"
@@ -74,10 +82,10 @@
                                             <i class="fa fa-eye"></i>&nbsp;/&nbsp;<i class="fa fa-edit"></i>
                                         </button>
                                         &nbsp;
-                                        <form action="{{ route('doctor.delete',$doctor->id) }}" method="post">
+                                        <form id="deleteForm" action="{{ route('doctor.delete',$doctor->id) }}" method="post">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="Submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button type="Submit" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
                                         </form>
 {{--                                        <a href="#" class="btn btn-sm text-danger"><i class="fa fa-trash"></i></a>--}}
                                     </div>
@@ -117,7 +125,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('doctor.update') }}" method="post">
+                        <form action="{{ route('doctor.update') }}" method="post" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="form-group">
@@ -141,7 +149,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="designation">Bangla Designation</label>
+                                <label for="designation">Designation</label>
                                 <input type="text" class="form-control" name="designation">
                             </div>
 
@@ -190,6 +198,10 @@
                                 <input type="text" class="form-control" name="phone">
                             </div>
                             <div class="form-group">
+                                <label for="fee">Fee</label>
+                                <input type="text" class="form-control" name="fee">
+                            </div>
+                            <div class="form-group">
                                 <label for="address">Weekdays</label>
                                 <input type="text" class="form-control" name="weekdays">
                             </div>
@@ -200,6 +212,11 @@
                             <div class="form-group">
                                 <label for="address">Visiting Hour Ends at</label>
                                 <input type="text" class="form-control" name="visiting_hours_end">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input type="file" class="form-control" name="image">
                             </div>
                             <input type="number" hidden name="id">
                             <div class="row float-right">
@@ -238,10 +255,16 @@
                 $('input[name=address]').val($(this).data('address'));
                 $('input[name=b_address]').val($(this).data('b_address'));
                 $('input[name=phone]').val($(this).data('phone'));
+                $('input[name=fee]').val($(this).data('fee'));
                 $('input[name=weekdays]').val($(this).data('weekdays'));
                 $('input[name=visiting_hours_start]').val($(this).data('visiting_hours_start'));
                 $('input[name=visiting_hours_end]').val($(this).data('visiting_hours_end'));
-            })
+            });
+
+
+          $(document).on("submit","#deleteForm",function () {
+            return confirm("Are You Sure?")
+          })
         })
     </script>
 @endsection

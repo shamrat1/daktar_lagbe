@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeImageColType extends Migration
+class AddNewColFee extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class ChangeImageColType extends Migration
     public function up()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            $table->longText("image")->change();
-
+            $table->string("fee")->after("phone")->nullable();
         });
     }
 
@@ -26,7 +25,7 @@ class ChangeImageColType extends Migration
      */
     public function down()
     {
-        Schema::table('doctor', function (Blueprint $table) {
+        Schema::table('doctors', function (Blueprint $table) {
             //
         });
     }
