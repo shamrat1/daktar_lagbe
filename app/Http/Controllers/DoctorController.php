@@ -43,8 +43,9 @@ class DoctorController extends Controller
 
                 //unlinking existing image
                 $currentImage = Doctor::find($request->id)->first();
-                if (File::exists("/images/$currentImage->image")){
-                    File::delete("/images/$currentImage->image");
+
+                if (!empty($currentImage->image)){
+                    @unlink(public_path()."/images/$currentImage->image");
                 }
                 // Done Unlinking
 
