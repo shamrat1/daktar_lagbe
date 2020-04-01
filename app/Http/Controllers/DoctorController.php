@@ -9,6 +9,13 @@ use App\Doctor;
 
 class DoctorController extends Controller
 {
+    public function apiIndex(){
+        $doctors = Doctor::all();
+        return response()->json([
+            "data" => $doctors
+        ]);
+    }
+
     public function index(){
         $doctors = Doctor::orderBy('id','desc')->paginate(5);
         return view("doctor/index")->with("doctors",$doctors);

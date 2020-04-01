@@ -17,3 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/doctor','DoctorController@store')->name('doctor.store');
+Route::get('/doctor/all','DoctorController@apiIndex')->name('doctor.index');
